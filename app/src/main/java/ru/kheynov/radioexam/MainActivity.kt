@@ -10,8 +10,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import ru.kheynov.radioexam.data.Ticket
 import ru.kheynov.radioexam.data.Tickets
+import ru.kheynov.radioexam.data.getTicket
 import ru.kheynov.radioexam.ui.theme.RadioExamTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,18 +19,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Tickets.init(context = applicationContext)
+            val ticketsList = Tickets.tickets
             RadioExamTheme {
                 ExamTicket(
-                    ticket = Ticket(
-                        23,
-                        11,
-                        3,
-                        "Чем в основном определяется коэффициент усиления схемы с применением операционного усилителя?",
-                        "Типом операционного усилителя.",
-                        "Глубиной частотной коррекции.",
-                        "Глубиной отрицательной обратной связи, задаваемой внешними элементами.",
-                        "Напряжением питания операционного усилителя.",
-                    )
+                    ticket = ticketsList.getTicket(137)!!
                 )
             }
         }
