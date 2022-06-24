@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class Ticket(
     val id: Int,
     val image_id: Int?,
-    val correct: String,
+    val correct: Int,
     val text: String,
     val var1: String,
     val var2: String,
