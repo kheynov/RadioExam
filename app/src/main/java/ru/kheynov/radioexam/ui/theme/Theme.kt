@@ -28,7 +28,8 @@ private val LightColorPalette = lightColors(
 )
 
 @Composable
-fun RadioExamTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
+fun RadioExamTheme(darkTheme: Boolean = false/*isSystemInDarkTheme()*/, content: @Composable () ->
+Unit) {
     val colors = if (darkTheme) {
         DarkColorPalette
     } else {
