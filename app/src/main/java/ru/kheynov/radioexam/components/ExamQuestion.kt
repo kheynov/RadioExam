@@ -1,4 +1,4 @@
-package ru.kheynov.radioexam
+package ru.kheynov.radioexam.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -18,15 +18,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.glide.GlideImage
-import ru.kheynov.radioexam.data.Ticket
+import ru.kheynov.radioexam.data.Question
 
 @Composable
-fun ExamTicket(
-    ticket: Ticket,
+fun ExamQuestion(
     modifier: Modifier = Modifier,
+    question: Question,
+    questionNumber: Pair<Int, Int>,
 ) {
     Surface(
         modifier = modifier
@@ -39,15 +41,25 @@ fun ExamTicket(
             horizontalAlignment = Alignment.Start
         ) {
             item {
-                Text(text = "Вопрос №${ticket.id}",
-                    modifier = Modifier.padding(bottom = 8.dp),
-                    style = MaterialTheme.typography.h1
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(text = "Вопрос №${question.id}",
+                        modifier = Modifier
+                            .padding(bottom = 8.dp)
+                            .weight(10f),
+                        style = MaterialTheme.typography.h1
+                    )
+                    Text(text = "${questionNumber.first} из ${questionNumber.second}",
+                        modifier = Modifier.weight(4f),
+                        style = MaterialTheme.typography.h3,
+                        textAlign = TextAlign.End)
+                }
                 Text(
-                    text = ticket.text,
+                    text = question.text,
                     style = MaterialTheme.typography.h2
                 )
-                ticket.image_id?.let {
+                question.image_id?.let {
                     GlideImage(
                         modifier = Modifier.padding(top = 16.dp),
                         imageModel = "android.resource://ru.kheynov.radioexam/drawable/exam$it",
@@ -58,7 +70,7 @@ fun ExamTicket(
                     remember { mutableStateOf(RadioButtonState.Unchecked) }
                 RadioButtonBlock(
                     modifier = Modifier.padding(top = 16.dp),
-                    ticket = ticket,
+                    question = question,
                     state = radioButtonState.value,
                     onSelect = { radioButtonState.value = RadioButtonState.Checked(it) }
                 )
@@ -69,7 +81,7 @@ fun ExamTicket(
 
 @Composable
 fun RadioButtonBlock(
-    ticket: Ticket,
+    question: Question,
     modifier: Modifier,
     state: RadioButtonState,
     onSelect: (Int) -> Unit,
@@ -78,22 +90,22 @@ fun RadioButtonBlock(
         TestChoice(
             state = state is RadioButtonState.Checked && state.count == 1,
             onClick = { onSelect(1) },
-            text = ticket.var1
+            text = question.var1
         )
         TestChoice(
             state = state is RadioButtonState.Checked && state.count == 2,
             onClick = { onSelect(2) },
-            text = ticket.var2
+            text = question.var2
         )
         TestChoice(
             state = state is RadioButtonState.Checked && state.count == 3,
             onClick = { onSelect(3) },
-            text = ticket.var3
+            text = question.var3
         )
         TestChoice(
             state = state is RadioButtonState.Checked && state.count == 4,
             onClick = { onSelect(4) },
-            text = ticket.var4
+            text = question.var4
         )
     }
 }
@@ -126,9 +138,9 @@ sealed interface RadioButtonState {
 
 @Preview(showBackground = true)
 @Composable
-fun ExamTicketPreview() {
-    ExamTicket(
-        ticket = Ticket(
+fun ExamQuestionPreview() {
+    ExamQuestion(
+        question = Question(
             23,
             2,
             3,
@@ -137,6 +149,7 @@ fun ExamTicketPreview() {
             "Глубиной частотной коррекции.",
             "Глубиной отрицательной обратной связи, задаваемой внешними элементами.",
             "Напряжением питания операционного усилителя.",
-        )
+        ),
+        questionNumber = 15 to 20
     )
 }
