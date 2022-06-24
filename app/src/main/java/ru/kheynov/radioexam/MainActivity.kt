@@ -10,20 +10,17 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import ru.kheynov.radioexam.data.Tickets
-import ru.kheynov.radioexam.data.getTicket
+import ru.kheynov.radioexam.data.Questions
+import ru.kheynov.radioexam.screens.exam_ticket.ExamTicket
 import ru.kheynov.radioexam.ui.theme.RadioExamTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Tickets.init(context = applicationContext)
-            val ticketsList = Tickets.tickets
+            Questions.init(context = applicationContext)
             RadioExamTheme {
-                ExamTicket(
-                    ticket = ticketsList.getTicket(137)!!
-                )
+                ExamTicket(category = 4)
             }
         }
     }

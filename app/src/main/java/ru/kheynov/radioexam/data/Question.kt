@@ -3,7 +3,7 @@ package ru.kheynov.radioexam.data
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Ticket(
+data class Question(
     val id: Int,
     val image_id: Int?,
     val correct: Int,
