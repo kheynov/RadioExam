@@ -10,7 +10,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import ru.kheynov.radioexam.data.Questions
+import ru.kheynov.radioexam.screens.MainMenu
+import ru.kheynov.radioexam.screens.NavigationEntries.EXAM
+import ru.kheynov.radioexam.screens.NavigationEntries.MENU
 import ru.kheynov.radioexam.screens.exam_ticket.ExamTicket
 import ru.kheynov.radioexam.ui.theme.RadioExamTheme
 
@@ -20,7 +28,24 @@ class MainActivity : ComponentActivity() {
         setContent {
             Questions.init(context = applicationContext)
             RadioExamTheme {
-                ExamTicket(category = 4)
+                val navController = rememberNavController()
+                NavHost(navController = navController,
+                    startDestination = MENU.entry) {
+                    composable(
+                        EXAM.entry + "/{category}",
+                        arguments = listOf(navArgument("category") {
+                            type = NavType.IntType
+                        })
+                    ) { backStackEntry ->
+                        ExamTicket(
+                            navController = navController,
+                            category = backStackEntry.arguments?.getInt("category")!!
+                        )
+                    }
+                    composable(MENU.entry){
+                        MainMenu(navController = navController)
+                    }
+                }
             }
         }
     }

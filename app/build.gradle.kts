@@ -50,6 +50,7 @@ android {
 
 dependencies {
     val composeVersion = "1.1.1"
+    val navVersion = "2.4.2"
 
     implementation("androidx.core:core-ktx:1.8.0")
     implementation("androidx.compose.ui:ui:$composeVersion")
@@ -71,8 +72,11 @@ dependencies {
 
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1")
-    implementation("androidx.compose.runtime:runtime-livedata:1.2.0-rc01")
+    implementation("androidx.compose.runtime:runtime-livedata:1.2.0-rc02")
 
     // Glide
     implementation("com.github.skydoves:landscapist-glide:1.5.0")
+
+    //Navigation
+    implementation("androidx.navigation:navigation-compose:$navVersion")
 }

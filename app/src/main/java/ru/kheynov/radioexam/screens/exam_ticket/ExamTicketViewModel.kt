@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import ru.kheynov.radioexam.data.CategoriesIntervals
 import ru.kheynov.radioexam.data.Question
 import ru.kheynov.radioexam.data.Questions
 import ru.kheynov.radioexam.data.getQuestionsForTicket
@@ -14,7 +15,7 @@ import ru.kheynov.radioexam.data.getQuestionsForTicket
 private const val TAG = "ExamTicketVM"
 
 class ExamTicketViewModel(
-    category: Int,
+    val category: Int,
 ) : ViewModel() {
 
     var cursor: Int = 0
@@ -26,6 +27,8 @@ class ExamTicketViewModel(
         private set
 
     val isNextQuestionAvailable = MutableLiveData<Boolean>()
+
+    val showDialog = MutableLiveData<Boolean>()
 
     var examTicketState: Array<ExamQuestionState>
         private set
@@ -48,12 +51,24 @@ class ExamTicketViewModel(
             isNextQuestionAvailable.value = false
             return
         }
+        showDialog.value = true
     }
 
     fun answerQuestion(answer: Int) {
         examTicketState[cursor] = ExamQuestionState(RadioButtonState.Checked(answer))
         isNextQuestionAvailable.value = true
         Log.i(TAG, examTicketState.toList().toString())
+    }
+
+    fun getResults(): Pair<Int, Int> {
+        var correct = 0
+        val target = CategoriesIntervals.categoriesCorrectToAllCount[category - 1].second
+        for (i in 0 until questionsList.size) {
+            if (questionsList[i].correct == (examTicketState[i].radioButtonState as
+                        RadioButtonState.Checked).answer
+            ) correct++
+        }
+        return correct to target
     }
 }
 

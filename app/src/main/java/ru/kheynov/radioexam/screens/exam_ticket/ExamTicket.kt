@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -19,18 +20,23 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.skydoves.landscapist.glide.GlideImage
+import ru.kheynov.radioexam.data.CategoriesIntervals
+import ru.kheynov.radioexam.screens.NavigationEntries.MENU
 
 private const val TAG = "ExamTicket"
 
 @Composable
 fun ExamTicket(
+    navController: NavController,
     category: Int,
     viewModel: ExamTicketViewModel = viewModel(factory = ExamTicketViewModelFactory(category)),
 ) {
-
     val question = viewModel.currentQuestion.observeAsState()
     val isNextQuestionAvailable = viewModel.isNextQuestionAvailable.observeAsState()
+    val showDialog = viewModel.showDialog.observeAsState()
+
 
     LazyColumn(Modifier
         .fillMaxWidth()
@@ -78,7 +84,6 @@ fun ExamTicket(
             ) { answer ->
                 viewModel.answerQuestion(answer)
             }
-
         }
     }
 
@@ -96,4 +101,47 @@ fun ExamTicket(
             }
         }
     }
+    if (showDialog.value == true) {
+        ResultDialog(
+            navController = navController,
+            results = viewModel.getResults(),
+            targetResults = CategoriesIntervals.categoriesCorrectToAllCount[category - 1]
+        )
+    }
 }
+
+@Composable
+fun ResultDialog(
+    navController: NavController,
+    results: Pair<Int, Int>,
+    targetResults: Pair<Int, Int>,
+) {
+    AlertDialog(
+        onDismissRequest = {
+            navController.navigate(MENU.entry) {
+                popUpTo(MENU.entry) { inclusive = true }
+            }
+        },
+        title = { Text(text = "Результаты") },
+        text = {
+            Text(text = "Вы набрали ${results.first} из ${results.second} баллов\nДля " +
+                    "сдачи экзамена требуется набрать ${targetResults.first} из ${
+                        targetResults.second
+                    }\n" +
+                    if (results.first < targetResults.first) "Экзамен не сдан" else "Экзамен сдан"
+            )
+        },
+        confirmButton = {
+            Button(
+                onClick = {
+                    navController.navigate(MENU.entry) {
+                        popUpTo(MENU.entry) { inclusive = true }
+                    }
+                },
+            ) {
+                Text(text = "На главную")
+            }
+        }
+    )
+}
+
