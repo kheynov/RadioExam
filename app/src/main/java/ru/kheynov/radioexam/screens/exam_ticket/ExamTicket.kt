@@ -20,7 +20,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.skydoves.landscapist.glide.GlideImage
-import ru.kheynov.radioexam.components.RadioButtonBlock
 
 private const val TAG = "ExamTicket"
 

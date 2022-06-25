@@ -1,4 +1,4 @@
-package ru.kheynov.radioexam.components
+package ru.kheynov.radioexam.screens.exam_ticket
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column

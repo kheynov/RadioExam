@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import ru.kheynov.radioexam.components.RadioButtonState
 import ru.kheynov.radioexam.data.Question
 import ru.kheynov.radioexam.data.Questions
 import ru.kheynov.radioexam.data.getQuestionsForTicket
