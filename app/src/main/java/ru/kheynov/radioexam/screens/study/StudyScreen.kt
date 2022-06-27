@@ -1,6 +1,7 @@
 package ru.kheynov.radioexam.screens.study
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,9 +14,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.skydoves.landscapist.glide.GlideImage
@@ -23,7 +26,7 @@ import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
 fun StudyScreen(
-    navController: NavController,
+//    navController: NavController,
     category: Int,
     viewModel: StudyScreenViewModel = viewModel(factory = StudyScreenViewModelFactory(category)),
 ) {
@@ -65,7 +68,41 @@ fun StudyScreen(
                 )
             }
 
-            //TODO: answers block
+            Column(modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp, vertical = 16.dp)
+            ) {
+                question.value?.let {
+                    Text(
+                        text = "1) ${it.var1}",
+                        color = if (1 == viewModel.questionsList[viewModel.cursor].correct)
+                            Color.Red else Color.Black,
+                        modifier = Modifier.padding(bottom = 8.dp),
+                        fontSize = 18.sp,
+                    )
+                    Text(
+                        text = "2) ${it.var2}",
+                        color = if (2 == viewModel.questionsList[viewModel.cursor].correct)
+                            Color.Red else Color.Black,
+                        modifier = Modifier.padding(bottom = 8.dp),
+                        fontSize = 18.sp,
+                    )
+                    Text(
+                        text = "3) ${it.var3}",
+                        color = if (3 == viewModel.questionsList[viewModel.cursor].correct)
+                            Color.Red else Color.Black,
+                        modifier = Modifier.padding(bottom = 8.dp),
+                        fontSize = 18.sp,
+                    )
+                    Text(
+                        text = "4) ${it.var4}",
+                        color = if (4 == viewModel.questionsList[viewModel.cursor].correct)
+                            Color.Red else Color.Black,
+                        modifier = Modifier.padding(bottom = 8.dp),
+                        fontSize = 18.sp,
+                    )
+                }
+            }
         }
     }
 
@@ -73,7 +110,7 @@ fun StudyScreen(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.BottomCenter,
     ) {
-        Row {
+        Row (modifier = Modifier.padding(horizontal = 8.dp)){
             Button(modifier = Modifier
                 .weight(1f)
                 .padding(horizontal = 8.dp, vertical = 8.dp),
