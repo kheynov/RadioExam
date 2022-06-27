@@ -32,3 +32,11 @@ fun List<Question>.getQuestionsForTicket(category: Int): List<Question> {
     return resultList.shuffled()
         .take(CategoriesIntervals.categoriesCorrectToAllCount[category - 1].second)
 }
+
+fun List<Question>.getAllQuestionsForCategory(category: Int): List<Question> {
+    val resultList = mutableListOf<Question>()
+    CategoriesIntervals.categoriesTicketsNumbers[category - 1].forEach {
+        resultList.add(this.getQuestion(it)!!)
+    }
+    return resultList
+}

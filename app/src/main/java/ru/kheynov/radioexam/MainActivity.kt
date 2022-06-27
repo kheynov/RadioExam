@@ -17,9 +17,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import ru.kheynov.radioexam.data.Questions
 import ru.kheynov.radioexam.screens.MainMenu
-import ru.kheynov.radioexam.screens.NavigationEntries.EXAM
-import ru.kheynov.radioexam.screens.NavigationEntries.MENU
+import ru.kheynov.radioexam.screens.NavigationEntries.*
 import ru.kheynov.radioexam.screens.exam_ticket.ExamTicket
+import ru.kheynov.radioexam.screens.study.StudyScreen
 import ru.kheynov.radioexam.ui.theme.RadioExamTheme
 
 class MainActivity : ComponentActivity() {
@@ -42,8 +42,23 @@ class MainActivity : ComponentActivity() {
                             category = backStackEntry.arguments?.getInt("category")!!
                         )
                     }
-                    composable(MENU.entry){
+
+
+                    composable(MENU.entry) {
                         MainMenu(navController = navController)
+                    }
+
+
+                    composable(
+                        STUDY.entry + "/{category}",
+                        arguments = listOf(navArgument("category") {
+                            type = NavType.IntType
+                        })
+                    ) { backStackEntry ->
+                        StudyScreen(
+                            navController = navController,
+                            category = backStackEntry.arguments?.getInt("category")!!
+                        )
                     }
                 }
             }

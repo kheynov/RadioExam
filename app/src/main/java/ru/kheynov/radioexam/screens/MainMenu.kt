@@ -16,6 +16,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import ru.kheynov.radioexam.screens.NavigationEntries.EXAM
+import ru.kheynov.radioexam.screens.NavigationEntries.STUDY
 
 @Composable
 fun MainMenu(
@@ -62,9 +63,38 @@ fun MainMenu(
                 }
             }
 
-            /*Column() {
-                //TODO: add study screen
-            }*/
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(text = "Посмотреть все билеты (выберите категорию)",
+                    fontSize = 24.sp,
+                    textAlign = TextAlign.Center
+                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Button(onClick = {
+                        navController.navigateTo(STUDY.entry, 1)
+                    }) {
+                        Text(text = "1")
+                    }
+                    Button(onClick = {
+                        navController.navigateTo(STUDY.entry, 2)
+                    }) {
+                        Text(text = "2")
+                    }
+                    Button(onClick = {
+                        navController.navigateTo(STUDY.entry, 3)
+                    }) {
+                        Text(text = "3")
+                    }
+                    Button(onClick = {
+                        navController.navigateTo(STUDY.entry, 4)
+                    }) {
+                        Text(text = "4")
+                    }
+                }
+            }
         }
     }
 }
