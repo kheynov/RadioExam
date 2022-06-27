@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
                         })
                     ) { backStackEntry ->
                         StudyScreen(
-                            navController = navController,
+//                            navController = navController,
                             category = backStackEntry.arguments?.getInt("category")!!
                         )
                     }

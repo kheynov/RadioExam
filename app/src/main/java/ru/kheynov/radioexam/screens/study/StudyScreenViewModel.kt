@@ -16,7 +16,7 @@ class StudyScreenViewModel(
     var cursor = 0
         private set
 
-    private val questionsList = mutableListOf<Question>()
+    val questionsList = mutableListOf<Question>()
 
     var currentQuestion = MutableLiveData<Question>()
         private set
