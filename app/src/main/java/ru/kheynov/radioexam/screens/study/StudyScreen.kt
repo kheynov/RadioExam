@@ -20,7 +20,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import com.skydoves.landscapist.glide.GlideImage
 
 
@@ -110,7 +109,7 @@ fun StudyScreen(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.BottomCenter,
     ) {
-        Row (modifier = Modifier.padding(horizontal = 8.dp)){
+        Row(modifier = Modifier.padding(horizontal = 8.dp)) {
             Button(modifier = Modifier
                 .weight(1f)
                 .padding(horizontal = 8.dp, vertical = 8.dp),

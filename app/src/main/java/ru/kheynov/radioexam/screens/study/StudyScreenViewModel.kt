@@ -13,10 +13,10 @@ class StudyScreenViewModel(
     category: Int,
 ) : ViewModel() {
 
-    var cursor = 0
+    private var cursor = 0
         private set
 
-    val questionsList = mutableListOf<Question>()
+    private val questionsList = mutableListOf<Question>()
 
     var currentQuestion = MutableLiveData<Question>()
         private set
