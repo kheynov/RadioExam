@@ -15,10 +15,10 @@ import ru.kheynov.radioexam.data.getQuestionsForTicket
 private const val TAG = "ExamTicketVM"
 
 class ExamTicketViewModel(
-    val category: Int,
+    private val category: Int,
 ) : ViewModel() {
 
-    var cursor: Int = 0
+    var cursor = 0
         private set
 
     private val questionsList = mutableListOf<Question>()
