@@ -1,4 +1,4 @@
-package ru.kheynov.radioexam.data
+package ru.kheynov.radioexam.model
 
 import kotlinx.serialization.Serializable
 

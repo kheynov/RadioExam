@@ -4,6 +4,7 @@ import android.content.Context
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import ru.kheynov.radioexam.R
+import ru.kheynov.radioexam.model.Question
 
 object Questions {
     private lateinit var jsonList: List<Question>

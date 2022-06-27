@@ -12,7 +12,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ru.kheynov.radioexam.data.Question
+import ru.kheynov.radioexam.model.Question
 
 @Composable
 fun RadioButtonBlock(
